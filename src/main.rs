@@ -237,6 +237,32 @@ impl Emu {
                 self.v_reg[x] >>= 1;
                 self.v_reg[0xF] = lsb;
             }
+            // VX = VY - VX
+            (8, _, _, 7) => {
+                let x = digit2 as usize;
+                let y = digit3 as usize;
+
+                let (new_vx, carry) = self.v_reg[y].overflowing_sub(self.v_reg[x]);
+                let new_vf = if carry { 0 } else { 1 };
+
+                self.v_reg[x] = new_vx;
+                self.v_reg[0xF] = new_vf;
+            }
+            // VX >>= 1
+            (8, _, _, 8) => {
+                let x = digit2 as usize;
+                let msb = (self.v_reg[x] >> 7) & 1;
+                self.v_reg[x] <<= 1;
+                self.v_reg[0xF] = msb;
+            }
+            // SKIP VX != VY
+            (9, _, _, 0) => {
+                let x = digit2 as usize;
+                let y = digit3 as usize;
+                if self.v_reg[x] != self.v_reg[y] {
+                    self.pc += 2;
+                }
+            }
             (_, _, _, _) => unimplemented!("unimplemented opcode: {}", op),
         }
     }
