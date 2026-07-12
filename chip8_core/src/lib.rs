@@ -31,9 +31,6 @@ const FONTSET: [u8; FONTSET_SIZE] = [
     0xF0, 0x80, 0xF0, 0x80, 0x80, // F
 ];
 
-fn main() {
-    println!("Hello, world!");
-}
 
 #[allow(dead_code)]
 pub struct Emu {
