@@ -8,7 +8,7 @@ const NUM_VREG: usize = 16; // number of general putpose registers -> V0 .. VF
 const STACK_SIZE: usize = 16; // total stack height
 const NUM_KEYS: usize = 16; // Number of keys on keyboard -> 4x4
 
-const START_ADDR: u16 = 200; // 0x200 (512) -> Start of most Chip-8 programs in RAM
+const START_ADDR: u16 = 0x200; // 0x200 (512) -> Start of most Chip-8 programs in RAM
 
 const FONTSET_SIZE: usize = 80;
 
@@ -81,7 +81,7 @@ impl Emu {
     }
 
     // display getter
-    pub fn get_disply(&self) -> &[bool] {
+    pub fn get_display(&self) -> &[bool] {
         &self.screen
     }
 
