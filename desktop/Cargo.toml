@@ -5,9 +5,4 @@ version.workspace = true
 
 [dependencies]
 chip8_core = { path = "../chip8_core" }
-env_logger = "0.11.11"
-error-iter = "0.4.1"
-log = "0.4.33"
-pixels = "0.17.1"
-winit = "0.30.13"
-winit_input_helper = "0.17.0"
+sdl2 = { version = "0.38", features = ["bundled"] }
