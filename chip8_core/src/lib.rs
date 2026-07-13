@@ -31,7 +31,6 @@ const FONTSET: [u8; FONTSET_SIZE] = [
     0xF0, 0x80, 0xF0, 0x80, 0x80, // F
 ];
 
-
 #[allow(dead_code)]
 pub struct Emu {
     pc: u16,
@@ -79,6 +78,22 @@ impl Emu {
         self.dt = 0;
         self.st = 0;
         self.ram[..FONTSET_SIZE].copy_from_slice(&FONTSET);
+    }
+
+    // display getter
+    pub fn get_disply(&self) -> &[bool] {
+        &self.screen
+    }
+
+    // keypress setter
+    pub fn key_press(&mut self, idx: usize, pressed: bool) {
+        self.keys[idx] = pressed;
+    }
+
+    pub fn load(&mut self, data: &[u8]) {
+        let start = START_ADDR as usize;
+        let end = (START_ADDR as usize) + data.len();
+        self.ram[start..end].copy_from_slice(data);
     }
 
     // stack operation functions
